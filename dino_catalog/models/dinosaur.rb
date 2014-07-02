@@ -1,74 +1,55 @@
 class Dinosaur
-    attr_accessor :name
-    attr_accessor :period
-    attr_accessor :contintent
-    attr_accessor :diet
-    attr_accessor :weight
-    attr_accessor :walking
-    attr_accessor :description
+  attr_accessor :name
+  attr_accessor :period
+  attr_accessor :contintent
+  attr_accessor :diet
+  attr_accessor :weight
+  attr_accessor :walking
+  attr_accessor :description
 
-    def initialize (params)
-        @name = params[:name]
-        @period = params[:period]
-        @continent = params[:continent]
-        @diet = params[:diet]
-        @weight = params[:weight]
-        @walking = params[:walking]
-        @description = params[:description]
+  def initialize (params)
+    @name        = params[:name]
+    @period      = params[:period]
+    @continent   = params[:continent]
+    @diet        = params[:diet]
+    @weight      = params[:weight]
+    @walking     = params[:walking]
+    @description = params[:description]
+  end
+
+  def is_carnivore
+    carnivorous = false
+
+    case @diet
+    when "Carnivore", "Insectivore", "Piscivore", "Yes"
+      carnivorous = true
     end
 
-    def is_carnivore
-        carnivorous = false
+    carnivorous
+  end
 
-        case @diet
-            when "Carnivore", "Insectivore", "Piscivore", "Yes"
-                carnivorous = true
-        end
+  def period
+    period_name = ""
 
-        carnivorous
-    end
+    period_name = @period if @period.index('Cretaceous') != 0
+    period_name = @period if @period.index('Jurassic')   != 0
+    period_name = @period if @period.index('Triassic')   != 0
 
-    def period
-        period_name = ""
+    period_name
+  end
 
-        if @period.index('Cretaceous') != 0
-            period_name = @period
-        end
-        if @period.index('Jurassic') != 0
-            period_name = @period
-        end
-        if @period.index('Triassic') != 0
-            period_name = @period
-        end
+  def print
+    line = ""
 
-        period_name
-    end
+    line.concat(@name.concat(" | "))        if (@name != nil)
+    line.concat(@period.concat(" | "))      if (@period != nil)
+    line.concat(@continent.concat(" | "))   if (@continent != nil)
+    line.concat(@diet.concat(" | "))        if (@diet!= nil)
+    line.concat(@weight.concat(" | "))      if (@weight != nil)
+    line.concat(@walking.concat(" | "))     if (@walking != nil)
+    line.concat(@description.concat(" | ")) if (@description != nil)
+    line.concat(@name.concat(" | "))        if (@name != nil)
 
-    def print
-        line = ""
-
-        if (@name != nil)
-            line.concat(@name.concat(" | "))
-        end
-        if (@period != nil)
-            line.concat(@period.concat(" | "))
-        end
-        if (@continent!= nil)
-            line.concat(@continent.concat(" | "))
-        end
-        if (@diet != nil)
-            line.concat(@diet.concat(" | "))
-        end
-        if (@weight!= nil)
-            line.concat(@weight.concat(" | "))
-        end
-        if (@walking != nil)
-            line.concat(@walking.concat(" | "))
-        end
-        if (@description != nil)
-            line.concat(@description.concat(" | "))
-        end
-
-        puts line
-    end
+    puts line
+  end
 end
