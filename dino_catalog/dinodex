@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require 'optparse'
+require 'ostruct'
+require 'pp'
+
+class DinoDex
+    def self.parse(args)
+
+        # Set up default options
+        options = OpenStruct.new
+        options.json = false
+
+
+        opt_parser = OptionParser.new do |opts|
+
+            opts.banner = "Usage: dino_catalog [options]"
+
+            opts.separator ""
+            opts.separator "Specific options:"
+
+            opts.on("-j", "--json", "Output in a JSON format") do
+                options.json = true
+            end
+
+            opts.on("-e", "--json-export", "Export CSV file into JSON format") do
+                # Just do export process
+                exit
+            end
+            opts.on("-w","--weight")
+
+            opts.on_tail("-h", "--help", "Show this message") do
+                puts opts
+                exit
+            end
+        end
+
+        opt_parser.parse!(args)
+        options
+    end
+end
+
+options = DinoDex.parse(ARGV)
+
+ARGV.each { |file| puts file }
+
+pp options
