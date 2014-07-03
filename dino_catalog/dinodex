@@ -4,40 +4,59 @@ require 'optparse'
 require 'ostruct'
 require 'pp'
 
+require_relative 'factories/csv_parser.rb'
+
 class DinoDex
-    def self.parse(args)
+  def self.parse(args)
 
-        # Set up default options
-        options = OpenStruct.new
-        options.json = false
+    # Set up default options
+    options = OpenStruct.new
+    options.json = false
+    options.json_export = false
 
 
-        opt_parser = OptionParser.new do |opts|
+    opt_parser = OptionParser.new do |opts|
 
-            opts.banner = "Usage: dino_catalog [options]"
+      opts.banner = "Usage: dino_catalog [options]"
 
-            opts.separator ""
-            opts.separator "Specific options:"
+      opts.separator ""
+      opts.separator "Specific options:"
 
-            opts.on("-j", "--json", "Output in a JSON format") do
-                options.json = true
-            end
+      opts.on("-j", "--json", "Output in a JSON format") do
+        options.json = true
+      end
 
-            opts.on("-e", "--json-export", "Export CSV file into JSON format") do
-                # Just do export process
-                exit
-            end
-            opts.on("-w","--weight")
+      opts.on("-e", "--json-export", "Export CSV file into JSON format") do
+        options.json_export = true
+      end
 
-            opts.on_tail("-h", "--help", "Show this message") do
-                puts opts
-                exit
-            end
-        end
+      opts.on("-w","--weight", "Weight of dinosaur") do
+        # fix me
+        options.weight = true
+      end
 
-        opt_parser.parse!(args)
-        options
+      opts.on_tail("-h", "--help", "Show this message") do
+        puts opts
+        exit
+      end
     end
+
+    opt_parser.parse!(args)
+
+    json_export(args) if options.json_export
+
+    options
+  end
+
+  def self.json_export(args)
+    args.each do |file|
+      csv_file = CSVParser.new(file)
+      pp csv_file.to_json
+    end
+
+    exit
+  end
+
 end
 
 options = DinoDex.parse(ARGV)

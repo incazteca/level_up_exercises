@@ -2,7 +2,7 @@ require 'csv'
 require 'json'
 require 'pp'
 
-class CsvParser
+class CSVParser
   attr_accessor :path
 
   def initialize(path)
@@ -39,8 +39,8 @@ class CsvParser
   end
 
   def to_json
-    CSV.foreach(@path) do |row|
-      puts row.inspect
-    end
+    hash_ar = to_arr_of_hash
+
+    hash_ar.to_json
   end
 end
