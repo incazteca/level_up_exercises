@@ -5,6 +5,7 @@ require 'ostruct'
 require 'pp'
 
 require_relative 'factories/csv_parser.rb'
+require_relative 'factories/dino_fetcher.rb'
 
 class DinoDex
   def self.parse(args)
@@ -17,7 +18,7 @@ class DinoDex
 
     opt_parser = OptionParser.new do |opts|
 
-      opts.banner = "Usage: dino_catalog [options]"
+      opts.banner = "Usage: dino_catalog file [...] [options]"
 
       opts.separator ""
       opts.separator "Specific options:"
@@ -30,15 +31,44 @@ class DinoDex
         options.json_export = true
       end
 
-      opts.on("-w","--weight", "Weight of dinosaur") do
-        # fix me
-        options.weight = true
+      # Dino search options
+
+      opts.on("-n","--name NAME", "Name of dinosaur") do |name|
+        options.name = name
       end
 
-      opts.on_tail("-h", "--help", "Show this message") do
+      opts.on("-d","--diet TYPE", [:carnivore, :herbivore],
+              "Specify diet of dinosaur (carnivore, herbivore)") do |diet|
+        options.diet = diet
+      end
+
+      opts.on("-p","--period PERIOD", "Specify period of dinosaur") do |period|
+        options.period = period
+      end
+
+      opts.on("-w","--walk TYPE", [:biped, :herbivore],
+              "Select dinosaur walking type (biped, quadriped)") do |walk|
+        options.walking_type = walk
+      end
+
+      opts.on("-s","--size N", "Size of dinosaur in pounds") do |size|
+        options.weight = size
+      end
+
+      opts.separator ""
+      opts.separator "Common Options"
+
+      opts.on("-h", "--help", "Show this message") do
         puts opts
         exit
       end
+
+      opts.separator ""
+      opts.separator "Numeric arguments can be specified as"
+      opts.separator "+n    for greater than n,"
+      opts.separator "-n    for less than n,"
+      opts.separator "n     for exactly n."
+
     end
 
     opt_parser.parse!(args)
@@ -49,18 +79,21 @@ class DinoDex
   end
 
   def self.json_export(args)
-    args.each do |file|
-      csv_file = CSVParser.new(file)
-      pp csv_file.to_json
-    end
-
+    args.each { |file| pp CSVParser.new(file).to_json }
     exit
   end
 
+  def self.run(file_paths,options)
+    file_paths.each do |file|
+      DinoFetcher.new(file_paths).get_dinosaurs(options).each do |dino|
+        pp dino
+      end
+    end
+  end
 end
 
+ARGV.push("-h") if ARGV.count == 0
+
 options = DinoDex.parse(ARGV)
+DinoDex.run(ARGV,options)
 
-ARGV.each { |file| puts file }
-
-pp options
