@@ -32,4 +32,13 @@ class Dinosaur
   def quadriped?
     @walking_type.include?("Quadriped")
   end
+
+  def inspect
+    dino_str = ''
+    self.instance_variables.map do |v|
+      dino_str += "|#{self.instance_variable_get(v)}"
+    end
+
+    puts dino_str
+  end
 end

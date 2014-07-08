@@ -85,7 +85,7 @@ class DinoDex
 
   def self.run(file_paths,options)
     DinoFetcher.new(file_paths).get_dinosaurs(options).each do |dino|
-      pp dino
+      dino.inspect
     end
   end
 end
