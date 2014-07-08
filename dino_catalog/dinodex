@@ -46,7 +46,7 @@ class DinoDex
         options.period = period
       end
 
-      opts.on("-w","--walk TYPE", [:biped, :herbivore],
+      opts.on("-w","--walk TYPE", [:biped, :quadriped],
               "Select dinosaur walking type (biped, quadriped)") do |walk|
         options.walking_type = walk
       end
