@@ -4,7 +4,7 @@ require_relative '../models/dinosaur.rb'
 class DinoFetcher
   attr_accessor :file_paths
 
-  def initialize (file_paths)
+  def initialize(file_paths)
     @file_paths = file_paths
   end
 
@@ -43,29 +43,29 @@ class DinoFetcher
     dino_ar
   end
 
-  def name_match_crit?(dino,value)
+  def name_match_crit?(dino, value)
     dino.name == value ? true : false
   end
 
-  def diet_match_crit?(dino,value)
+  def diet_match_crit?(dino, value)
     crit_match = false
     crit_match = true if value.to_s == 'carnivore' && dino.carnivore?
     crit_match = true if value.to_s == 'herbivore' && !dino.carnivore?
     crit_match
   end
 
-  def period_match_crit?(dino,value)
+  def period_match_crit?(dino, value)
     dino.period?(value)
   end
 
-  def walk_match_crit?(dino,value)
+  def walk_match_crit?(dino, value)
     crit_match = false
     crit_match = true if value.to_s == "biped" && dino.biped?
     crit_match = true if value.to_s == 'quadriped' && dino.quadriped?
     crit_match
   end
 
-  def weight_match_crit?(dino,value)
+  def weight_match_crit?(dino, value)
     crit_match = false
 
     if dino.weight != nil
@@ -80,5 +80,5 @@ class DinoFetcher
 
     crit_match
   end
-
 end
+

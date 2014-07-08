@@ -11,7 +11,8 @@ class CSVParser
 
   def to_arr_of_hash
     contents = File.read(@path)
-    CSV.parse(contents,headers: :true, header_converters: :symbol).map(&:to_hash)
+    CSV.parse(contents, headers: :true, header_converters: :symbol).
+      map(&:to_hash)
   end
 
   def to_json
@@ -19,3 +20,4 @@ class CSVParser
     hash_ar.to_json
   end
 end
+

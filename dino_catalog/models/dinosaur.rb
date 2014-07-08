@@ -36,9 +36,9 @@ class Dinosaur
   def inspect
     dino_str = ''
     self.instance_variables.map do |v|
-      dino_str += "|#{self.instance_variable_get(v)}"
+      dino_str << "|#{self.instance_variable_get(v)}"
     end
-
     puts dino_str
   end
 end
+

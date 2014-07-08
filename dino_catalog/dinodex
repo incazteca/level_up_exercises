@@ -83,7 +83,7 @@ class DinoDex
     exit
   end
 
-  def self.run(file_paths,options)
+  def self.run(file_paths, options)
     DinoFetcher.new(file_paths).get_dinosaurs(options).each do |dino|
       dino.inspect
     end
@@ -93,5 +93,5 @@ end
 ARGV.push("-h") if ARGV.count == 0
 
 options = DinoDex.parse(ARGV)
-DinoDex.run(ARGV,options)
+DinoDex.run(ARGV, options)
 
