@@ -1,0 +1,3 @@
+class RSpecJsonParse
+
+end
