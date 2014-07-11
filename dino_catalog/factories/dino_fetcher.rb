@@ -22,38 +22,35 @@ class DinoFetcher
   end
 
   def dino_match_filter?(dino, opt_hash)
-    if opt_hash.has_key?(:name)
-      return if !name_match_filter?(dino, opt_hash[:name])
+    if opt_hash[:name]
+      return unless name_match_filter?(dino, opt_hash[:name])
     end
 
-    if opt_hash.has_key?(:diet)
-      return if !diet_match_filter?(dino, opt_hash[:diet])
+    if opt_hash[:diet]
+      return unless diet_match_filter?(dino, opt_hash[:diet])
     end
 
-    if opt_hash.has_key?(:period)
-      return if !period_match_filter?(dino, opt_hash[:period])
+    if opt_hash[:period]
+      return unless period_match_filter?(dino, opt_hash[:period])
     end
 
-    if opt_hash.has_key?(:walking_type)
-      return if !walk_match_filter?(dino, opt_hash[:walking_type])
+    if opt_hash[:walking_type]
+      return unless walk_match_filter?(dino, opt_hash[:walking_type])
     end
 
-    if opt_hash.has_key?(:weight)
-      return if !weight_match_filter?(dino, opt_hash[:weight])
+    if opt_hash[:weight]
+      return unless weight_match_filter?(dino, opt_hash[:weight])
     end
 
     true
   end
 
   def name_match_filter?(dino, value)
-    dino.name == value ? true : false
+    dino.name == value
   end
 
   def diet_match_filter?(dino, value)
-    filter_match = false
-    filter_match = true if value.to_s == 'carnivore' && dino.carnivore?
-    filter_match = true if value.to_s == 'herbivore' && !dino.carnivore?
-    filter_match
+    value == :carnivore ? dino.carnivore? : !dino.carnivore?
   end
 
   def period_match_filter?(dino, value)
@@ -61,26 +58,20 @@ class DinoFetcher
   end
 
   def walk_match_filter?(dino, value)
-    filter_match = false
-    filter_match = true if value.to_s == "biped" && dino.biped?
-    filter_match = true if value.to_s == 'quadriped' && dino.quadriped?
-    filter_match
+    value == :biped ? dino.biped? : dino.quadriped?
   end
 
   def weight_match_filter?(dino, value)
-    filter_match = false
 
-    if dino.weight != nil
-      if value.include? "+"
-        filter_match = true if dino.weight.to_i > value[1..-1].to_i
-      elsif value.include? "-"
-        filter_match = true if dino.weight.to_i < value[1..-1].to_i
-      else
-        filter_match = true if dino.weight.to_i == value.to_i
-      end
+    return false unless dino.weight
+
+    if value.include? "+"
+      dino.weight.to_i > value[1..-1].to_i
+    elsif value.include? "-"
+      dino.weight.to_i < value[1..-1].to_i
+    else
+      dino.weight.to_i == value.to_i
     end
-
-    filter_match
   end
 end
 
