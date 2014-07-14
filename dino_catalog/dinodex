@@ -12,7 +12,6 @@ class DinoDex
 
     # Set up default options
     options = OpenStruct.new
-    options.json = false
     options.json_export = false
 
 
@@ -22,10 +21,6 @@ class DinoDex
 
       opts.separator ""
       opts.separator "Specific options:"
-
-      opts.on("-j", "--json", "Output in a JSON format") do
-        options.json = true
-      end
 
       opts.on("-e", "--json-export", "Export CSV file into JSON format") do
         options.json_export = true
