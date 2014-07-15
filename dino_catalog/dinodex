@@ -13,6 +13,7 @@ class DinoDex
     # Set up default options
     options = OpenStruct.new
     options.json_export = false
+    options.cli_options = {}
 
 
     opt_parser = OptionParser.new do |opts|
@@ -26,28 +27,28 @@ class DinoDex
         options.json_export = true
       end
 
-      # Dino search options
+      # Dino search cli_options
 
       opts.on("-n","--name NAME", "Name of dinosaur") do |name|
-        options.name = name
+        options.cli_options[:name] = name
       end
 
       opts.on("-d","--diet TYPE", [:carnivore, :herbivore],
               "Specify diet of dinosaur (carnivore, herbivore)") do |diet|
-        options.diet = diet
+        options.cli_options[:diet] = diet
       end
 
       opts.on("-p","--period PERIOD", "Specify period of dinosaur") do |period|
-        options.period = period
+        options.cli_options[:period] = period
       end
 
       opts.on("-w","--walk TYPE", [:biped, :quadriped],
               "Select dinosaur walking type (biped, quadriped)") do |walk|
-        options.walking_type = walk
+        options.cli_options[:walking_type] = walk
       end
 
       opts.on("-s","--size N", "Size of dinosaur in pounds") do |size|
-        options.weight = size
+        options.cli_options[:weight] = size
       end
 
       opts.separator ""
@@ -79,7 +80,7 @@ class DinoDex
   end
 
   def self.run(file_paths, options)
-    DinoFetcher.new(file_paths).get_dinosaurs(options).each do |dino|
+    DinoFetcher.new(file_paths).get_dinosaurs(options.cli_options).each do |dino|
       dino.inspect
     end
   end

@@ -14,7 +14,7 @@ class DinoFetcher
     @file_paths.each do |file|
       CSVParser.new(file).to_arr_of_hash.each do |elem|
         dino = Dinosaur.new(elem)
-        dino_ar.push(dino) if dino_match_filter?(dino,options.to_h)
+        dino_ar.push(dino) if dino_match_filter?(dino, options)
       end
     end
 
