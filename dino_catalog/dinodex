@@ -48,7 +48,13 @@ class DinoDex
       end
 
       opts.on("-s","--size N", "Size of dinosaur in pounds") do |size|
-        options.cli_options[:weight] = size
+        if size.include? "+"
+          options.cli_options[:weight_more] = size.to_i
+        elsif size.include? "-"
+          options.cli_options[:weight_less] = size[1..-1].to_i
+        else
+          options.cli_options[:weight] = size.to_i
+        end
       end
 
       opts.separator ""

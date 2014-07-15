@@ -22,33 +22,16 @@ class DinoFetcher
   end
 
   def dino_match_filter?(dino, opt_hash)
-    if opt_hash[:name]
-      return unless name_match_filter?(dino, opt_hash[:name])
-    end
-
-    if opt_hash[:diet]
-      return unless diet_match_filter?(dino, opt_hash[:diet])
-    end
-
-    if opt_hash[:period]
-      return unless period_match_filter?(dino, opt_hash[:period])
-    end
-
-    if opt_hash[:walking_type]
-      return unless walk_match_filter?(dino, opt_hash[:walking_type])
-    end
-
-    if opt_hash[:weight]
-      return unless weight_match_filter?(dino, opt_hash[:weight])
-    end
-
-    true
+    opt_hash.all? { |k, v| send("#{k.to_s}_match_filter?", dino, v) }
   end
+
+  private
 
   def name_match_filter?(dino, value)
     dino.name == value
   end
 
+  # TODO Refactor the user carnivore mapping to dinodex
   def diet_match_filter?(dino, value)
     value == :carnivore ? dino.carnivore? : !dino.carnivore?
   end
@@ -57,21 +40,22 @@ class DinoFetcher
     dino.period?(value)
   end
 
-  def walk_match_filter?(dino, value)
+  # TODO Refactor this as well
+  def walking_type_match_filter?(dino, value)
     value == :biped ? dino.biped? : dino.quadriped?
   end
 
-  def weight_match_filter?(dino, value)
-
-    return false unless dino.weight
-
-    if value.include? "+"
-      dino.weight.to_i > value[1..-1].to_i
-    elsif value.include? "-"
-      dino.weight.to_i < value[1..-1].to_i
-    else
-      dino.weight.to_i == value.to_i
-    end
+  def weight_more_match_filter?(dino, value)
+    dino.weight.to_i > value if dino.weight
   end
+
+  def weight_less_match_filter?(dino, value)
+    dino.weight.to_i < value if dino.weight
+  end
+
+  def weight_match_filter?(dino, value)
+    dino.weight.to_i == value if dino.weight
+  end
+
 end
 
