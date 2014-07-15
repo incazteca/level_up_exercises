@@ -1,11 +1,5 @@
 class Dinosaur
-  attr_accessor :name
-  attr_accessor :period
-  attr_accessor :contintent
-  attr_accessor :diet
-  attr_accessor :weight
-  attr_accessor :walking_type
-  attr_accessor :description
+  attr_accessor :name, :period, :contintent, :diet, :weight, :walking_type, :description
 
   def initialize (params)
     @name         = params[:name] || params[:genus]
