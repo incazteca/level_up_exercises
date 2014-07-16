@@ -1,3 +1,5 @@
+require_relative('../src/split_test_calc.rb')
+
 describe SplitTestCalc do
   let(:file) { File.join(__FILE__, "data", "test_data.json") }
   let(:calc) { SplitTestCalc.new(file) }
