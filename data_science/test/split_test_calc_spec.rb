@@ -4,6 +4,10 @@ describe SplitTestCalc do
   let(:file) { File.join('.', "data", "test_data.json") }
   let(:calc) { SplitTestCalc.new(file) }
 
+  it "stores file path" do
+    expect (calc.path).to equal(file)
+  end
+
   it "sums up total sample size" do
     expect(calc.total_sample_size).to equal(10)
   end
