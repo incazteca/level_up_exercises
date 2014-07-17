@@ -1,6 +1,5 @@
 require 'pp'
 include Math
-require 'pry'
 
 require_relative('json_parser.rb')
 
@@ -9,12 +8,12 @@ class SplitTestCalc
 
   def initialize(path)
     @path = path
-    @cohort_a_total = 0
-    @cohort_b_total = 0
-    @cohort_a_converts = 0
-    @cohort_b_converts = 0
     @total_sample_size = 0
     @chi_cutoff = 3.84
+    @cohort_a_total = 0.0
+    @cohort_a_converts = 0.0
+    @cohort_b_total = 0.0
+    @cohort_b_converts = 0.0
 
     JSONParser.new(path).to_arr_of_hash.each do |elem|
       cohort_a_summing(elem[:result]) if elem[:cohort] == "A"
@@ -25,9 +24,9 @@ class SplitTestCalc
 
   def conversion_rate(cohort)
     if cohort == 'A'
-      Float(@cohort_a_converts) / Float(@cohort_a_total)
+      @cohort_a_converts / @cohort_a_total
     elsif cohort == 'B'
-      Float(@cohort_b_converts) / Float(@cohort_b_total)
+      @cohort_b_converts / @cohort_b_total
     end
   end
 
@@ -62,13 +61,17 @@ class SplitTestCalc
   end
 
   def chi_square
-    a = @cohort_a_converts
-    b = @cohort_a_total - @cohort_a_converts
-    c = @cohort_b_converts
-    d = @cohort_b_total - @cohort_b_converts
-    n = @total_sample_size
+    # TODO block it off
+    non_converts_a = @cohort_a_total - @cohort_a_converts
+    non_converts_b = @cohort_b_total - @cohort_b_converts
+    non_converts = non_converts_a + non_converts_b
 
-    Float(n * ( (a * d) - (b * c) )**2) / Float((a + b) * (c + d) * (b + d) * (a + c))
+    converts = @cohort_a_converts + @cohort_b_converts
+
+    num = @total_sample_size * ( (@cohort_a_converts * non_converts_b) - (non_converts_a * cohort_b_converts) )**2
+    den =  @cohort_a_total * @cohort_b_total * converts * non_converts
+
+    num / den
   end
 end
 
