@@ -13,6 +13,7 @@ class SplitTestCalc
     @cohort_a_converts = 0
     @cohort_b_converts = 0
     @total_sample_size = 0
+    @chi_cutoff = 3.84
 
     JSONParser.new(path).to_arr_of_hash.each do |elem|
       cohort_a_summing(elem[:result]) if elem[:cohort] == "A"
@@ -33,6 +34,15 @@ class SplitTestCalc
     Math.sqrt(p * (1 - p) / @cohort_b_total) if cohort == "B"
   end
 
+  def error_bars(cohort)
+    standard_error(cohort) * 1.96 if cohort == "A"
+    standard_error(cohort) * 1.96 if cohort == "B"
+  end
+
+  def cohort_a_better?
+    chi_square > @chi_cutoff
+  end
+
   private
 
   def cohort_a_summing(result)
@@ -44,5 +54,14 @@ class SplitTestCalc
     @cohort_b_total += 1
     @cohort_b_converts += 1 if result == 1
   end
-end
 
+  def chi_square
+    a = @cohort_a_converts
+    b = @cohort_a_total - @cohort_a_converts
+    c = @cohort_b_converts
+    d = @cohort_b_total - @cohort_b_converts
+    n = @total_sample_size
+
+    Float(n * ( (a * d) - (b * c) )**2) / Float((a + b) * (c + d) * (b + d) * (a + c))
+  end
+end
