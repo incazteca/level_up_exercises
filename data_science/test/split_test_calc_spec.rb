@@ -5,7 +5,7 @@ describe SplitTestCalc do
   let(:calc) { SplitTestCalc.new(file) }
 
   it "stores file path" do
-    expect (calc.path).to equal(file)
+    expect(calc.path).to equal(file)
   end
 
   it "sums up total sample size" do
@@ -13,12 +13,11 @@ describe SplitTestCalc do
   end
 
   it "calculates conversion rate" do
-    expect(calc.conversion_rate('a')).to equal(0)
-    expect(calc.conversion_rate('b')).to equal(0.125)
+    expect(calc.conversion_rate('B')).to equal(0.125)
   end
 
   it "calculates standard error" do
-    expect(calc.standard_error('a')).to equal(Math.sqrt(0.125 * (1 - 0.125) / 8))
+    expect(calc.standard_error('B')).to equal(Math.sqrt(0.125 * (1 - 0.125) / 8))
   end
 
   it "sums users in cohort A" do
