@@ -1,5 +1,6 @@
 require 'pp'
 include Math
+require 'pry'
 
 require_relative('json_parser.rb')
 
@@ -23,20 +24,25 @@ class SplitTestCalc
   end
 
   def conversion_rate(cohort)
-    Float(@cohort_a_converts) / Float(@cohort_a_total) if cohort == "A"
-    Float(@cohort_b_converts) / Float(@cohort_b_total) if cohort == "B"
+    if cohort == 'A'
+      Float(@cohort_a_converts) / Float(@cohort_a_total)
+    elsif cohort == 'B'
+      Float(@cohort_b_converts) / Float(@cohort_b_total)
+    end
   end
 
   def standard_error(cohort)
     p = conversion_rate(cohort)
 
-    Math.sqrt(p * (1 - p) / @cohort_a_total) if cohort == "A"
-    Math.sqrt(p * (1 - p) / @cohort_b_total) if cohort == "B"
+    if cohort == 'A'
+      Math.sqrt(p * (1 - p) / @cohort_a_total)
+    elsif cohort == 'B'
+      Math.sqrt(p * (1 - p) / @cohort_b_total)
+    end
   end
 
   def error_bars(cohort)
-    standard_error(cohort) * 1.96 if cohort == "A"
-    standard_error(cohort) * 1.96 if cohort == "B"
+    standard_error(cohort) * 1.96
   end
 
   def cohort_a_better?
@@ -65,3 +71,11 @@ class SplitTestCalc
     Float(n * ( (a * d) - (b * c) )**2) / Float((a + b) * (c + d) * (b + d) * (a + c))
   end
 end
+
+calc = SplitTestCalc.new(File.join('.', "data", "source_data.json"))
+
+puts "Conversion Rate for Cohort A: #{(calc.conversion_rate('A') * 100).round(2)}% +/- #{(calc.error_bars('A') * 100).round(2)}%"
+puts "Conversion Rate for Cohort B: #{(calc.conversion_rate('B') * 100).round(2)}% +/- #{(calc.error_bars('B') * 100).round(2)}%"
+
+puts "Stay with cohort A" if calc.cohort_a_better?
+puts "Switch to cohort B" if !calc.cohort_a_better?
