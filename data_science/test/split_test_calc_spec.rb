@@ -13,27 +13,29 @@ describe SplitTestCalc do
   end
 
   it "calculates conversion rate" do
+    expect(calc.conversion_rate('A')).to equal(0.0)
     expect(calc.conversion_rate('B')).to equal(0.125)
   end
 
   it "calculates standard error" do
+    expect(calc.standard_error('A')).to equal(0.0)
     expect(calc.standard_error('B')).to equal(Math.sqrt(0.125 * (1 - 0.125) / 8))
   end
 
   it "sums users in cohort A" do
-    expect(calc.cohort_a_total).to equal(2)
+    expect(calc.cohort_a_total).to eq(2)
   end
 
   it "sums converted users in cohort A" do
-    expect(calc.cohort_a_converts).to equal(0)
+    expect(calc.cohort_a_converts).to eq(0)
   end
 
   it "sums users in cohort B" do
-    expect(calc.cohort_b_total).to equal(8)
+    expect(calc.cohort_b_total).to eq(8)
   end
 
   it "sums converted users in cohort B" do
-    expect(calc.cohort_b_converts).to equal(1)
+    expect(calc.cohort_b_converts).to eq(1)
   end
 
   it "calculates error bars with 95% confidence" do
