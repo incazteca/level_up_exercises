@@ -44,12 +44,5 @@ class SplitTestCalc
     @cohort_b_total += 1
     @cohort_b_converts += 1 if result == 1
   end
-
-  def calculate_a_rate
-  end
-
-  def calculate_b_rate
-  end
 end
 
-#SplitTestCalc.new("data/test_data.json")
