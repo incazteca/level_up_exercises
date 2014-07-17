@@ -35,4 +35,12 @@ describe SplitTestCalc do
   it "sums converted users in cohort B" do
     expect(calc.cohort_b_converts).to equal(1)
   end
+
+  it "calculates error bars with 95% confidence" do
+    expect(calc.error_bars('B')).to equal(calc.standard_error('B') * 1.96)
+  end
+
+  it "decides if cohort A is better than cohort B" do
+    expect(calc.cohort_a_better?).to equal(false)
+  end
 end
