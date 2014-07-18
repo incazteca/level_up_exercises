@@ -1,23 +1,40 @@
+require 'uri'
+require 'net/http'
+require 'json'
+
 Given(/^a bomb$/) do
-  pending # express the regexp above with the code you wish you had
+  @bomb_api = Net::HTTP.new('127.0.0.1', 4567)
 end
 
 When(/^I turn the bomb on$/) do
-  pending # express the regexp above with the code you wish you had
-end
+  request = Net::HTTP::Post.new('/on')
 
-Then(/^Bomb status should not be "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+  @bomb_api.request(request)
+
+  status_req = Net::HTTP::Get.new('/status')
+  @status = @bomb_api.request(status_req)
 end
 
 When(/^I activate it$/) do
-  pending # express the regexp above with the code you wish you had
+  request = Net::HTTP::Post.new('/activate')
+  request.set_form_data({:activation_code => 1234})
+
+  @bomb_api.request(request)
+
+  status_req = Net::HTTP::Get.new('/status')
+  @status = @bomb_api.request(status_req)
 end
 
-Then(/^Bomb status should be "(.*?)"$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
+Then(/^Bomb status should be "(.*?)"$/) do |status|
+  @status.should == status
 end
 
 When(/^I reactivate it$/) do
-  pending # express the regexp above with the code you wish you had
+  request = Net::HTTP::Post.new('/activate')
+  request.set_form_data({:activation_code => 1234})
+
+  @bomb_api.request(request)
+
+  status_req = Net::HTTP::Get.new('/status')
+  @status = @bomb_api.request(status_req)
 end

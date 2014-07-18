@@ -3,7 +3,7 @@ Feature: Bomb is deactivated
     safely a bomb needs to be deactivated.
 
     Scenario: Bomb is deactivated
-        Given a bomb
+        Given an activated bomb
         When I deactivate it
         Then Bomb status should be "Deactivated"
 
