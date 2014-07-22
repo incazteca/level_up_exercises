@@ -12,8 +12,3 @@ Feature: Bomb is activated
         When I activate it
         Then Bomb status should be "Active"
 
-    Scenario: Bomb is reactivated
-        Given a bomb
-        When I reactivate it
-        Then Bomb status should be "Active"
-

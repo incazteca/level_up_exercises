@@ -1,31 +1,24 @@
-require 'uri'
-require 'net/http'
-require 'json'
+require 'capybara'
+require 'capybara/cucumber'
+require_relative '../../../../src/controllers/overlord'
+
+Capybara.app = Sinatra::Application.new
+Capybara.javascript_driver = :webkit
 
 Given(/^an activated bomb$/) do
-
-  @bomb_api = Net::HTTP.new('127.0.0.1', 4567)
-  request = Net::HTTP::Post.new('/on')
-
-  @bomb_api.request(request)
-
-  request = Net::HTTP::Post.new('/activate')
-  request.set_form_data({:activation_code => 1234})
-
-  @bomb_api.request(request)
+  click_button 'Activate'
+  click_button '1'
+  click_button '2'
+  click_button '3'
+  click_button '4'
+  click_button 'Enter'
 end
 
 When(/^I deactivate it$/) do
-
-  request = Net::HTTP::Post.new('/deactivate')
-  request.set_form_data({:deactivation_code => 0000})
-
-  @bomb_api.request(request)
-
-  status_req = Net::HTTP::Get.new('/status')
-  @status = @bomb_api.request(status_req)
-end
-
-Then(/^Bomb status should be "(.*?)"$/) do |status|
-  @status.should == status
+  click_button 'Deactivate'
+  click_button '0'
+  click_button '0'
+  click_button '0'
+  click_button '0'
+  click_button 'Enter'
 end
