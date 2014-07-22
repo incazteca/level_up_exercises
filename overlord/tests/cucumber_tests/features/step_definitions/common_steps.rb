@@ -1,6 +1,6 @@
 require 'capybara'
 require 'capybara/cucumber'
-require_relative '../../../../src/controllers/overlord'
+require_relative '../../../../src/overlord'
 
 Capybara.app = Sinatra::Application.new
 
