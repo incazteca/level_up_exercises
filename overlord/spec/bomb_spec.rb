@@ -1,3 +1,5 @@
+require_relative '../models/bomb'
+
 describe Bomb do
   let (:bomb) { Bomb.new }
 
