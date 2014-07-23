@@ -1,8 +1,3 @@
-require 'capybara'
-require 'capybara/cucumber'
-require_relative '../../../../src/overlord'
-
-Capybara.app = Sinatra::Application.new
 Capybara.javascript_driver = :webkit
 
 Given(/^an activated bomb$/) do
