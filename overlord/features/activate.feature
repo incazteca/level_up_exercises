@@ -5,10 +5,10 @@ Feature: Bomb is activated
     Scenario: Bomb is turned on deactivated
         Given a bomb
         When I turn the bomb on
-        Then Bomb status should be "Deactivated"
+        Then Bomb status should be "DEACTIVATED"
 
     Scenario: Bomb is activated
         Given a bomb
         When I activate it
-        Then Bomb status should be "Active"
+        Then Bomb status should be "ACTIVE"
 
