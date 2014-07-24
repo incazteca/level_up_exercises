@@ -1,0 +1,84 @@
+!!! 5
+%html
+  %head
+    %title Bomb for Overlord
+    %meta(charset="utf-8")
+    %meta(http-equiv="X-UA-Compatible" content="IE-edge")
+    %meta(name="viewport" content="width=device-width, initial-scale=1")
+    %link(rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css')
+  %body
+    %script(type='text/javascript'
+            src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js')
+    %script(type='text/javascript'
+            src='https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js')
+    %script(type='text/javascript' src='js/bomb.js')
+
+    %br
+    .container
+      %form#bomb_form
+        .row
+          .col-md-8
+            .form-group
+              %input#display.form-control(readonly)
+          .col-md-4
+            .form-group
+              %input#status.form-control()
+
+      .row
+        .col-md-8
+          .col-md-4
+            .form-group
+              %button.btn.btn-default.keypad(onclick = 'input_from_keypad(1)') 1
+          .col-md-4
+            .form-group
+              %button.btn.btn-default.keypad(onclick = 'input_from_keypad(2)') 2
+          .col-md-4
+            .form-group
+              %button.btn.btn-default.keypad(onclick = 'input_from_keypad(3)') 3
+        .col-md-4
+          .form-group
+            %button.btn.btn-danger TIMER
+
+      .row
+        .col-md-8
+          .col-md-4
+            .form-group
+              %button.btn.btn-default.keypad(onclick = 'input_from_keypad(4)') 4
+          .col-md-4
+            .form-group
+              %button.btn.btn-default.keypad(onclick = 'input_from_keypad(5)') 5
+          .col-md-4
+            .form-group
+              %button.btn.btn-default.keypad(onclick = 'input_from_keypad(6)') 6
+        .col-md-4
+          .form-group
+            %button.btn.btn-danger ACTIVATE
+
+      .row
+        .col-md-8
+          .col-md-4
+            .form-group
+              %button.btn.btn-default.keypad(onclick = 'input_from_keypad(7)') 7
+          .col-md-4
+            .form-group
+              %button.btn.btn-default.keypad(onclick = 'input_from_keypad(8)') 8
+          .col-md-4
+            .form-group
+              %button.btn.btn-default.keypad(onclick = 'input_from_keypad(9)') 9
+        .col-md-4
+          .form-group
+            %button.btn.btn-success DEACTIVATE
+
+      .row
+        .col-md-8
+          .col-md-4
+            .form-group
+              %button.btn.btn-warning SET
+          .col-md-4
+            .form-group
+              %button.btn.btn-default.keypad(onclick = 'input_from_keypad(0)') 0
+          .col-md-4
+            .form-group
+              %button.btn.btn-warning(onclick = 'clear_display()') CLEAR
+        .col-md-4
+          %button.btn.btn-danger(onclick = 'turn_on()') ON/OFF
