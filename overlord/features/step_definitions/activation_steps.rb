@@ -5,11 +5,10 @@ When(/^I turn the bomb on$/) do
 end
 
 When(/^I activate it$/) do
-  click_button 'ACTIVATE'
   click_button '1'
   click_button '2'
   click_button '3'
   click_button '4'
-  click_button 'ENTER'
+  click_button 'ACTIVATE'
 end
 

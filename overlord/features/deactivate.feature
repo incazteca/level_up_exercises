@@ -5,5 +5,5 @@ Feature: Bomb is deactivated
     Scenario: Bomb is deactivated
         Given an activated bomb
         When I deactivate it
-        Then Bomb status should be "Deactivated"
+        Then Bomb status should be "DEACTIVATED"
 
