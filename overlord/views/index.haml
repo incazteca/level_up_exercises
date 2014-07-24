@@ -22,7 +22,7 @@
               %input#display.form-control(readonly)
           .col-md-4
             .form-group
-              %input#status.form-control()
+              %input#status.form-control(readonly)
 
       .row
         .col-md-8
@@ -82,3 +82,88 @@
               %button.btn.btn-warning(onclick = 'clear_display()') CLEAR
         .col-md-4
           %button.btn.btn-danger(onclick = 'turn_on()') ON/OFF
+
+      %br
+      %br
+      .row
+        .col-md-12
+          %h5 KEY
+      %br
+      .row
+        .col-md-4
+          %button.btn.btn-default 1
+          +
+          %button.btn.btn-default 2
+          +
+          %button.btn.btn-default 3
+          +
+          %button.btn.btn-default 4
+          +
+          %button.btn.btn-danger ACTIVATE
+        .col-md-2
+          %h5 ACTIVATE BOMB
+
+        .col-md-4
+          %button.btn.btn-default 4
+          +
+          %button.btn.btn-default 3
+          +
+          %button.btn.btn-default 2
+          +
+          %button.btn.btn-default 1
+          +
+          %button.btn.btn-warning SET
+          +
+          %button.btn.btn-danger ACTIVATE
+        .col-md-2
+          %h5 SET NEW ACTIVATION CODE
+      %br
+
+      .row
+        .col-md-4
+          %button.btn.btn-default 0
+          +
+          %button.btn.btn-default 0
+          +
+          %button.btn.btn-default 0
+          +
+          %button.btn.btn-default 0
+          +
+          %button.btn.btn-success DEACTIVATE
+        .col-md-2
+          %h5 DEACTIVATE BOMB
+
+        .col-md-5
+          %button.btn.btn-default 4
+          +
+          %button.btn.btn-default 3
+          +
+          %button.btn.btn-default 2
+          +
+          %button.btn.btn-default 1
+          +
+          %button.btn.btn-warning SET
+          +
+          %button.btn.btn-success DEACTIVATE
+        .col-md-1
+          %h5 SET NEW DEACTIVATION CODE
+      %br
+
+      .row
+        .col-md-4
+          %button.btn.btn-danger TIMER
+        .col-md-2
+          %h5 SET TIMER TO 30 SEC AND BEGIN COUNTDOWN
+
+        .col-md-4
+          %button.btn.btn-default 4
+          +
+          %button.btn.btn-default 3
+          +
+          %button.btn.btn-default 2
+          +
+          %button.btn.btn-default 1
+          +
+          %button.btn.btn-danger TIMER
+        .col-md-2
+          %h5 SET TIMER TO 43 MIN AND 21 SEC AND BEGIN COUNTDOWN
