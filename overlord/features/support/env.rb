@@ -5,3 +5,5 @@ require 'capybara/cucumber'
 require 'rspec'
 
 Capybara.app = Sinatra::Application.new
+Capybara.javascript_driver = :webkit
+Capybara.match = :first

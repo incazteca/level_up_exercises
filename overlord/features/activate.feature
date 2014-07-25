@@ -12,3 +12,7 @@ Feature: Bomb is activated
         When I activate it
         Then Bomb status should be "ACTIVE"
 
+    Scenario: Bomb is given new activation code
+        Given a bomb
+        When I set a new activation code and activate bomb with it
+        Then Bomb status should be "ACTIVE"

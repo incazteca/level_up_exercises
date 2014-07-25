@@ -45,7 +45,7 @@ describe Bomb do
 
   it "will explode upon having incorrect deactivation code 3 times" do
     3.times { bomb.deactivate(0007) }
-    expect(bomb.status).to equal(nil)
+    expect(bomb.status).to eq('')
   end
 
   it "has a timer with initial time of 30 seconds" do
@@ -53,13 +53,13 @@ describe Bomb do
   end
 
   it "has timer that can be set by user" do
-    bomb.set_time(42)
+    bomb.set_time('0:00:42')
     expect(bomb.timer).to equal(42)
   end
 
-  it "explodes upon timer reaching 0" do
-    bomb.set_time(0)
-    expect(bomb.status).to equal(nil)
+  it "explodes upon timer reaching detonation time" do
+    bomb.set_time('0:00:00')
+    expect(bomb.status).to eq('')
   end
 end
 
