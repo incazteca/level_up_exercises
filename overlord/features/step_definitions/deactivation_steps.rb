@@ -39,7 +39,7 @@ When(/^I set a new deactivation code and deactive bomb with it$/) do
 end
 
 When(/^I unsuccessfully deactivate the bomb (\d+) times$/) do |attempts|
-  attempts.times do
+  attempts.to_i.times do
     click_button 'DEACTIVATE'
     click_button '4'
     click_button '3'

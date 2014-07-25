@@ -18,4 +18,4 @@ Feature: Bomb is deactivated
     Scenario: Bomb is unsuccesfully deactivated three times and explodes
         Given an activated bomb
         When I unsuccessfully deactivate the bomb 3 times
-        Then Bomb status should be ""
+        Then Bomb status should be "BOOM"

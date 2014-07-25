@@ -3,7 +3,5 @@ Given(/^a bomb$/) do
 end
 
 Then(/^Bomb status should be "(.*?)"$/) do |status|
-  visit '/'
-
   expect(page).to have_content status
 end
