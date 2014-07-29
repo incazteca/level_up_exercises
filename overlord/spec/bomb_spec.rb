@@ -53,12 +53,15 @@ describe Bomb do
   end
 
   it "has timer that can be set by user" do
+    bomb.activate(1234)
     bomb.set_time('0:00:42')
     expect(bomb.timer).to equal(42)
   end
 
   it "explodes upon timer reaching detonation time" do
+    bomb.activate(1234)
     bomb.set_time('0:00:00')
+    bomb.start_countdown
     expect(bomb.status).to eq('BOOM')
   end
 end
