@@ -18,10 +18,10 @@ describe Bomb do
 
   it "only accepts numeric input for activation code" do
     bomb.set_activation_code("abcd")
-    expect(bomb.activation_code).to !equal("abcd")
+    expect(bomb.activation_code).not_to equal("abcd")
 
     bomb.set_activation_code("abc1")
-    expect(bomb.activation_code).to !equal("abc1")
+    expect(bomb.activation_code).not_to equal("abc1")
   end
 
   it "stays activated once activated" do
