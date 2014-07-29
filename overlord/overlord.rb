@@ -16,11 +16,11 @@ post '/on' do
 end
 
 post '/set/activation_code' do
-  session[:bomb].set_activation_code(params[:display].to_i)
+  session[:bomb].set_activation_code(params[:display])
 end
 
 post '/set/deactivation_code' do
-  session[:bomb].set_deactivation_code(params[:display].to_i)
+  session[:bomb].set_deactivation_code(params[:display])
 end
 
 post '/set/timer' do
@@ -32,11 +32,11 @@ post '/start/timer' do
 end
 
 post '/activate' do
-  session[:bomb].activate(params[:display].to_i)
+  session[:bomb].activate(params[:display])
 end
 
 post '/deactivate' do
-  session[:bomb].deactivate(params[:display].to_i)
+  session[:bomb].deactivate(params[:display])
 end
 
 get '/status' do

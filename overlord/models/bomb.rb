@@ -1,10 +1,11 @@
+require 'pry'
 class Bomb
 
   attr_accessor :activation_code, :deactivation_code, :status, :timer, :deactivation_attempts, :detonation_time
 
   def initialize
-    @activation_code = 1234
-    @deactivation_code = 0000
+    @activation_code = "1234"
+    @deactivation_code = "0000"
     @status = 'DEACTIVATED'
     @timer = 30 # in seconds
     @deactivation_attempts = 0
@@ -64,7 +65,7 @@ class Bomb
   private
 
   def code_valid?(code)
-    code.is_a?(Fixnum) && code.to_s.length == 4
+    /\d{4}/ =~ code
   end
 
 end
