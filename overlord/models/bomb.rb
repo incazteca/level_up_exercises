@@ -9,11 +9,19 @@ class Bomb
     @status = 'DEACTIVATED'
     @timer = 30 # in seconds
     @deactivation_attempts = 0
+    @activation_attempts = 0
     @detonation_time = 0
   end
 
   def activate(code)
-    @status = 'ACTIVE' if @activation_code == code && code_valid?(code)
+    @activation_attempts += 1
+
+    if @activation_code == code && code_valid?(code)
+      @status = 'ACTIVE'
+      @activation_attempts = 0
+    end
+
+    detonate if @activation_attempts == 3
   end
 
   def deactivate(code)
