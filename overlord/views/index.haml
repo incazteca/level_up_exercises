@@ -16,70 +16,79 @@
     %br
     .container
       %form#bomb_form
+        %input#set.form-control(type = 'hidden' value = 'false' name = 'set')
+        %input#action.form-control(type = 'hidden' value = 'none' name = 'action')
         .row
-          .col-md-8
+          .col-sm-8
             .form-group
-              %input#display.form-control(readonly)
-          .col-md-4
+              %input#display.form-control(readonly name = 'display' maxlength = 4)
+          .col-sm-4
             .form-group
-              %input#status.form-control(readonly)
+              %input#status.form-control(readonly name = 'status')
 
       .row
-        .col-md-8
-          .col-md-4
+        .col-sm-8
+          .col-sm-4
             .form-group
               %button.btn.btn-default.keypad(onclick = 'input_from_keypad(1)') 1
-          .col-md-4
+          .col-sm-4
             .form-group
               %button.btn.btn-default.keypad(onclick = 'input_from_keypad(2)') 2
-          .col-md-4
+          .col-sm-4
             .form-group
               %button.btn.btn-default.keypad(onclick = 'input_from_keypad(3)') 3
-        .col-md-4
+        .col-sm-4
           .form-group
-            %button.btn.btn-danger TIMER
+            %button.btn.btn-danger(onclick = "set_action('TIMER')") TIMER
 
       .row
-        .col-md-8
-          .col-md-4
+        .col-sm-8
+          .col-sm-4
             .form-group
               %button.btn.btn-default.keypad(onclick = 'input_from_keypad(4)') 4
-          .col-md-4
+          .col-sm-4
             .form-group
               %button.btn.btn-default.keypad(onclick = 'input_from_keypad(5)') 5
-          .col-md-4
+          .col-sm-4
             .form-group
               %button.btn.btn-default.keypad(onclick = 'input_from_keypad(6)') 6
-        .col-md-4
+        .col-sm-4
           .form-group
-            %button.btn.btn-danger ACTIVATE
+            %button.btn.btn-danger(onclick = "set_action('ACTIVATE')" ) ACTIVATE
 
       .row
-        .col-md-8
-          .col-md-4
+        .col-sm-8
+          .col-sm-4
             .form-group
               %button.btn.btn-default.keypad(onclick = 'input_from_keypad(7)') 7
-          .col-md-4
+          .col-sm-4
             .form-group
               %button.btn.btn-default.keypad(onclick = 'input_from_keypad(8)') 8
-          .col-md-4
+          .col-sm-4
             .form-group
               %button.btn.btn-default.keypad(onclick = 'input_from_keypad(9)') 9
-        .col-md-4
+        .col-sm-4
           .form-group
-            %button.btn.btn-success DEACTIVATE
+            %button.btn.btn-success(onclick = "set_action('DEACTIVATE')") DEACTIVATE
 
       .row
-        .col-md-8
-          .col-md-4
+        .col-sm-8
+          .col-sm-4
             .form-group
-              %button.btn.btn-warning SET
-          .col-md-4
+              %button.btn.btn-warning(onclick = 'set_modifier()') SET
+          .col-sm-4
             .form-group
               %button.btn.btn-default.keypad(onclick = 'input_from_keypad(0)') 0
-          .col-md-4
+          .col-sm-4
             .form-group
               %button.btn.btn-warning(onclick = 'clear_display()') CLEAR
-        .col-md-4
-          %button.btn.btn-danger(onclick = 'turn_on()') ON/OFF
+        .col-sm-4
+          .form-group
+            %button.btn.btn-danger(onclick = 'turn_on()') ON
+
+      .row
+        .col-sm-12
+          .form-group
+            %button.btn.btn-danger.btn-block(onclick = 'submit_bomb()') ENTER
+
 
