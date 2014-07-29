@@ -7,14 +7,14 @@ function input_from_keypad(value) {
     }
 }
 
-function submit_bomb( ) {
+function submit_bomb() {
 
-    set_modifier = $('#set').val()
+    set = $('#set').val()
     action_type = $('#action').val()
 
     switch(action_type) {
     case 'TIMER':
-        if (set_modifier == 'true') {
+        if (set == 'true') {
             set_timer()
         }
         else{
@@ -23,7 +23,7 @@ function submit_bomb( ) {
         break
 
     case 'ACTIVATE':
-        if (set_modifier == 'true') {
+        if (set == 'true') {
             set_activation_code()
         }
         else{
@@ -32,7 +32,7 @@ function submit_bomb( ) {
         break
 
     case 'DEACTIVATE':
-        if (set_modifier == 'true') {
+        if (set == 'true') {
             set_deactivation_code()
         }
         else{
@@ -40,10 +40,17 @@ function submit_bomb( ) {
         }
         break
     }
+
+    reset_hidden_fields()
 }
 
 function clear_display() {
     $('#display').val('')
+}
+
+function reset_hidden_fields() {
+    $('#set').val('false')
+    $('#action').val('none')
 }
 
 function turn_on() {
