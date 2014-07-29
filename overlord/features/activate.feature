@@ -19,3 +19,9 @@ Feature: Bomb is activated
         Given a bomb
         When I set a new activation code and activate bomb with it
         Then Bomb status should be "ACTIVE"
+
+    @javascript
+    Scenario: Bomb is given bad activation code
+        Given a bomb
+        When I enter wrong activation code
+        Then Bomb status should be "DEACTIVATED"

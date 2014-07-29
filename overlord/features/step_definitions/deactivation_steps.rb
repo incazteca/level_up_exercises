@@ -2,7 +2,7 @@
 Given(/^an activated bomb$/) do
   visit '/'
 
-  click_button 'ON/OFF'
+  click_button 'ON'
 
   click_button 'ACTIVATE'
   click_button '1'
