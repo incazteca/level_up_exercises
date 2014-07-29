@@ -37,3 +37,14 @@ When(/^I enter wrong activation code$/) do
   click_button '4'
   click_button 'ENTER'
 end
+
+When(/^I unsuccessfully activate the bomb (\d+) times$/) do |attempts|
+  attempts.to_i.times do
+    click_button 'ACTIVATE'
+    click_button '4'
+    click_button '3'
+    click_button '2'
+    click_button '1'
+    click_button 'ENTER'
+  end
+end

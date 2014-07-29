@@ -48,6 +48,11 @@ describe Bomb do
     expect(bomb.status).to eq('BOOM')
   end
 
+  it "will explode upon having incorrect activation code 3 times" do
+    3.times { bomb.activate('0007') }
+    expect(bomb.status).to eq('BOOM')
+  end
+
   it "has a timer with initial time of 30 seconds" do
     expect(bomb.timer).to equal(30)
   end

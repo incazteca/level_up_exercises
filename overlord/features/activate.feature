@@ -25,3 +25,9 @@ Feature: Bomb is activated
         Given a bomb
         When I enter wrong activation code
         Then Bomb status should be "DEACTIVATED"
+
+    @javascript
+    Scenario: Bomb is unsuccesfully activated three times and explodes
+        Given a bomb
+        When I unsuccessfully activate the bomb 3 times
+        Then Bomb status should be "BOOM"
