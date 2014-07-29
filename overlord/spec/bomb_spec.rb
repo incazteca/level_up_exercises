@@ -8,20 +8,20 @@ describe Bomb do
   end
 
   it "has initial activation code of 1234" do
-    expect(bomb.activation_code).to equal('1234')
+    expect(bomb.activation_code).to eq('1234')
   end
 
   it "Can have user set activation code" do
     bomb.set_activation_code('2014')
-    expect(bomb.activation_code).to equal('2014')
+    expect(bomb.activation_code).to eq('2014')
   end
 
   it "only accepts numeric input for activation code" do
     bomb.set_activation_code('abcd')
-    expect(bomb.activation_code).not_to equal('abcd')
+    expect(bomb.activation_code).not_to eq('abcd')
 
     bomb.set_activation_code('abc1')
-    expect(bomb.activation_code).not_to equal('abc1')
+    expect(bomb.activation_code).not_to eq('abc1')
   end
 
   it "stays activated once activated" do
@@ -30,12 +30,12 @@ describe Bomb do
   end
 
   it "has initial deactivation code of 0000" do
-    expect(bomb.deactivation_code).to equal('0000')
+    expect(bomb.deactivation_code).to eq('0000')
   end
 
   it "can have user set deactivation code" do
     bomb.set_deactivation_code('2014')
-    expect(bomb.deactivation_code).to equal('2014')
+    expect(bomb.deactivation_code).to eq('2014')
   end
 
   it "can be deactivated upon entering deactivation code" do
