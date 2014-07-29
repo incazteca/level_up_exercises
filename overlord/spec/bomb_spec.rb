@@ -8,43 +8,43 @@ describe Bomb do
   end
 
   it "has initial activation code of 1234" do
-    expect(bomb.activation_code).to equal(1234)
+    expect(bomb.activation_code).to equal('1234')
   end
 
   it "Can have user set activation code" do
-    bomb.set_activation_code(2014)
-    expect(bomb.activation_code).to equal(2014)
+    bomb.set_activation_code('2014')
+    expect(bomb.activation_code).to equal('2014')
   end
 
   it "only accepts numeric input for activation code" do
-    bomb.set_activation_code("abcd")
-    expect(bomb.activation_code).not_to equal("abcd")
+    bomb.set_activation_code('abcd')
+    expect(bomb.activation_code).not_to equal('abcd')
 
-    bomb.set_activation_code("abc1")
-    expect(bomb.activation_code).not_to equal("abc1")
+    bomb.set_activation_code('abc1')
+    expect(bomb.activation_code).not_to equal('abc1')
   end
 
   it "stays activated once activated" do
-    bomb.activate(1234)
+    bomb.activate('1234')
     expect(bomb.status).to eq("ACTIVE")
   end
 
   it "has initial deactivation code of 0000" do
-    expect(bomb.deactivation_code).to equal(0000)
+    expect(bomb.deactivation_code).to equal('0000')
   end
 
   it "can have user set deactivation code" do
-    bomb.set_deactivation_code(2014)
-    expect(bomb.deactivation_code).to equal(2014)
+    bomb.set_deactivation_code('2014')
+    expect(bomb.deactivation_code).to equal('2014')
   end
 
   it "can be deactivated upon entering deactivation code" do
-    bomb.deactivate(0000)
+    bomb.deactivate('0000')
     expect(bomb.status).to eq("DEACTIVATED")
   end
 
   it "will explode upon having incorrect deactivation code 3 times" do
-    3.times { bomb.deactivate(0007) }
+    3.times { bomb.deactivate('0007') }
     expect(bomb.status).to eq('BOOM')
   end
 
@@ -53,13 +53,13 @@ describe Bomb do
   end
 
   it "has timer that can be set by user" do
-    bomb.activate(1234)
+    bomb.activate('1234')
     bomb.set_time('0:00:42')
     expect(bomb.timer).to equal(42)
   end
 
   it "explodes upon timer reaching detonation time" do
-    bomb.activate(1234)
+    bomb.activate('1234')
     bomb.set_time('0:00:00')
     bomb.start_countdown
     expect(bomb.status).to eq('BOOM')
