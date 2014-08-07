@@ -1,6 +1,22 @@
 function input_from_keypad(value) {
 
     maxlength = $('#display').attr('maxLength')
+    action_type = $('#action').val()
+
+    if (action_type == 'TIMER' && $('#status').val() != '') {
+
+        timer_string = $('#display').val()
+        timer_ar = timer_string.split('')
+
+        timer_ar.splice(4, 1)
+        timer_ar.splice(1, 1)
+        timer_ar.shift()
+        timer_ar.push(value.toString())
+        timer_ar.splice(1, 0, ':')
+        timer_ar.splice(4, 0, ':')
+
+        $('#display').val(timer_ar.join(''))
+    }
 
     if ($('#status').val() != '' && $('#display').val().length < maxlength) {
         $('#display').val( $('#display').val() + value.toString() )
@@ -62,7 +78,7 @@ function set_action(action_type) {
 
     // Format display according to action type
     if (action_type == 'TIMER') {
-        if ( $('#set').val() == true ) {
+        if ( $('#set').val() == 'true' ) {
             format_display('TIME')
         }
         else {

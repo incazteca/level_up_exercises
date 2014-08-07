@@ -53,7 +53,12 @@ function deactivate() {
 function set_timer() {
     $.ajax({
         type: "POST",
-        url: "/set/timer"
+        url: "/set/timer",
+        data: $('#bomb_form').serialize(),
+        success: function() {
+            get_status()
+            clear_display()
+        }
     })
 }
 
