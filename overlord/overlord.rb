@@ -28,7 +28,8 @@ post '/set/timer' do
 end
 
 post '/start/timer' do
-  session[:bomb].start_countdown(params[:display])
+  session[:bomb].start_countdown()
+  status 200
 end
 
 post '/activate' do
@@ -43,3 +44,6 @@ get '/status' do
   session[:bomb].status
 end
 
+get '/timer' do
+  session[:bomb].timer.to_s
+end

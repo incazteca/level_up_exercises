@@ -54,13 +54,15 @@ function reset_hidden_fields() {
 }
 
 function turn_on() {
-    $.ajax({
-        type: "POST",
-        url: "/on",
-        success: function() {
-            get_status()
-        }
-    })
+    if ($('#status').val() == '') {
+        $.ajax({
+            type: "POST",
+            url: "/on",
+            success: function() {
+                get_status()
+            }
+        })
+    }
 }
 
 function set_modifier() {
@@ -72,7 +74,12 @@ function set_action(action_type) {
 
     // Format display according to action type
     if (action_type == 'TIMER') {
-        format_display('TIME')
+        if ( $('#set').val() == true ) {
+            format_display('TIME')
+        }
+        else {
+            get_timer()
+        }
     }
     else {
         format_display('CODE')
@@ -115,6 +122,7 @@ function activate() {
         data: $('#bomb_form').serialize(),
         success: function() {
             get_status()
+            clear_display()
         }
     })
 }
@@ -126,6 +134,7 @@ function deactivate() {
         data: $('#bomb_form').serialize(),
         success: function() {
             get_status()
+            clear_display()
         }
     })
 }
@@ -138,9 +147,26 @@ function set_timer() {
 }
 
 function start_timer() {
+    if ($('#status').val() == 'ACTIVE') {
+        $.ajax({
+            type: "POST",
+            url: "/start/timer",
+            success: function() {
+                $('#action').val('COUNTDOWN')
+                timer_countdown()
+            }
+        })
+    }
+}
+
+function get_timer() {
     $.ajax({
-        type: "POST",
-        url: "/start/timer"
+        type: "GET",
+        url: "/timer",
+        dataType: 'text',
+        success: function(data) {
+            $('#display').val(to_time_string(data))
+        }
     })
 }
 
@@ -153,4 +179,55 @@ function get_status() {
             $('#status').val(data)
         }
     })
+}
+
+function to_time_string(time_in_seconds) {
+    divisor = 60
+
+    seconds = time_in_seconds % divisor
+    minutes = Math.floor(time_in_seconds / divisor)
+    hours   = Math.floor(minutes / divisor)
+    minutes = minutes % divisor
+
+    return hours + ":" + pad_number(minutes) + ":" + pad_number(seconds)
+}
+
+function timer_countdown() {
+    interval = setInterval(function(){
+        display = $('#display').val();
+
+        if (display == "0:00:00") {
+            clearInterval(interval)
+            get_status()
+        }
+
+        time = display.split(':')
+
+        if (time[2] == "00") {
+            if (time[1] == "00") {
+                if (time[0] != "0"){
+                    time[0] = (time[0] - 1).toString()
+                    time[1] = "59"
+                }
+            }
+            else {
+                time[1] = (time[1] - 1).toString()
+                time[2] = "59"
+            }
+        }
+        else {
+            time[2] = (time[2] - 1).toString()
+        }
+
+        display = time[0] + ":" + pad_number(time[1]) + ":" + pad_number(time[2])
+        $('#display').val(display)
+    }, 1000)
+}
+
+function pad_number(number) {
+    if (number.toString().length == 1) {
+        number = "0" + number
+    }
+
+    return number
 }
