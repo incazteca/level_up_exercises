@@ -13,7 +13,7 @@ Feature: Bomb Timer is set and bomb detonated
     Scenario: Bomb has default timer used for countdown
         Given an activated bomb
         When I start the timer countdown
-        Then Bomb status should be "ACTIVATED"
+        Then Bomb status should be "ACTIVE"
 
     @javascript
     Scenario: Bomb has timer set
