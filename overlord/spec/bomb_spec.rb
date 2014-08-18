@@ -1,0 +1,73 @@
+require_relative '../models/bomb'
+
+describe Bomb do
+  let (:bomb) { Bomb.new }
+
+  it "turns on" do
+    expect(bomb.status).to eq("DEACTIVATED")
+  end
+
+  it "has initial activation code of 1234" do
+    expect(bomb.activation_code).to eq('1234')
+  end
+
+  it "Can have user set activation code" do
+    bomb.set_activation_code('2014')
+    expect(bomb.activation_code).to eq('2014')
+  end
+
+  it "only accepts numeric input for activation code" do
+    bomb.set_activation_code('abcd')
+    expect(bomb.activation_code).not_to eq('abcd')
+
+    bomb.set_activation_code('abc1')
+    expect(bomb.activation_code).not_to eq('abc1')
+  end
+
+  it "stays activated once activated" do
+    bomb.activate('1234')
+    expect(bomb.status).to eq("ACTIVE")
+  end
+
+  it "has initial deactivation code of 0000" do
+    expect(bomb.deactivation_code).to eq('0000')
+  end
+
+  it "can have user set deactivation code" do
+    bomb.set_deactivation_code('2014')
+    expect(bomb.deactivation_code).to eq('2014')
+  end
+
+  it "can be deactivated upon entering deactivation code" do
+    bomb.deactivate('0000')
+    expect(bomb.status).to eq("DEACTIVATED")
+  end
+
+  it "will explode upon having incorrect deactivation code 3 times" do
+    3.times { bomb.deactivate('0007') }
+    expect(bomb.status).to eq('BOOM')
+  end
+
+  it "will explode upon having incorrect activation code 3 times" do
+    3.times { bomb.activate('0007') }
+    expect(bomb.status).to eq('BOOM')
+  end
+
+  it "has a timer with initial time of 30 seconds" do
+    expect(bomb.timer).to equal(30)
+  end
+
+  it "has timer that can be set by user" do
+    bomb.activate('1234')
+    bomb.set_time('0:00:42')
+    expect(bomb.timer).to equal(42)
+  end
+
+  it "explodes upon timer reaching detonation time" do
+    bomb.activate('1234')
+    bomb.set_time('0:00:00')
+    bomb.start_countdown
+    expect(bomb.status).to eq('BOOM')
+  end
+end
+
