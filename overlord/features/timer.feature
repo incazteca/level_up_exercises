@@ -31,4 +31,5 @@ Feature: Bomb Timer is set and bomb detonated
     Scenario: Bomb is detonated
         Given an activated bomb
         When I set the timer to "0:00:00"
+        When I start the timer countdown
         Then Bomb status should be "BOOM"
