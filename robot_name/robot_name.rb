@@ -35,7 +35,6 @@ class Robot
   def generate_num
     rand(10)
   end
-
 end
 
 robot = Robot.new
