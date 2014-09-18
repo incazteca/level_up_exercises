@@ -1,4 +1,3 @@
-require 'pry'
 class Bomb
 
   attr_accessor :activation_code, :deactivation_code, :status, :timer, :deactivation_attempts, :detonation_time

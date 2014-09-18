@@ -1,7 +1,7 @@
 # run `ruby overlord.rb` to run a webserver for this app
 
 require 'sinatra'
-require 'Haml'
+require 'haml'
 require_relative 'models/bomb.rb'
 
 enable :sessions
