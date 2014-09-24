@@ -42,7 +42,7 @@ class BlagPost
     return "" if categories.empty?
     label = "Category".pluralize(categories.length)
 
-    return as_title("#{label}: #{categories.to_sentence}")
+    as_title("#{label}: #{categories.to_sentence}")
   end
 
   def as_title(string)
